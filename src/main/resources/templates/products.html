@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        th, td { padding: .3em;}
+        th {
+            background-color: lightgray;
+            font-size: small;
+        }
+        table { border: 1px solid lightgray;}
+
+        td.price { text-align: right}
+        td.col_green { color: green}
+        td.col_red { color: darkred}
+
+
+    </style>
+</head>
+<body>
+<p>
+<h1>Current prices</h1>
+</p>
+
+<div th:if="${ not#lists.isEmpty(products)}">
+    <table>
+        <tr>
+            <th>Stock</th>
+            <th>Company Name</th>
+            <th>Cur Price</th>
+            <th>&nbsp;</th>
+            <th>Change, %</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.ticker}"></td>
+            <td th:text="${product.name}"></td>
+            <td class="price" th:text="'$' + ${product.currentPrice}"></td>
+            <td>&nbsp;</td>
+            <td class="price" th:classappend="${product.todayChangePercents > 0 ? 'col_green' : 'col_red'}"
+                th:text="${product.todayChangePercents}+ '%'"></td>
+        </tr>
+        <table>
+</div>
+</body>
+</html>
