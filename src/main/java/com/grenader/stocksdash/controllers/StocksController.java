@@ -1,21 +1,21 @@
 package com.grenader.stocksdash.controllers;
 
-import com.grenader.stocksdash.services.ProductService;
+import com.grenader.stocksdash.services.StockLineViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ProductController {
+public class StocksController {
 
     @Autowired
-    private ProductService productService;
+    private StockLineViewService stockLineViewService;
 
-    @GetMapping("/products")
+    @GetMapping("/stocks")
     public String listProducts(Model model){
-        model.addAttribute("products", productService.listAllProducts());
-        return "products";
+        model.addAttribute("stocks", stockLineViewService.listAllStockLines());
+        return "stocks";
     }
 
 }

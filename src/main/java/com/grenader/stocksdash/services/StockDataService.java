@@ -13,24 +13,31 @@ public class StockDataService {
 
     public StockData getStock(String ticker) {
 
-        Stock stock = null;
+        Stock stock;
         try {
             stock = YahooFinance.get(ticker);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new IllegalStateException(e);
+            return StockData.builder().ticker(ticker).build();
         }
 
-        BigDecimal change = stock.getQuote().getChangeInPercent();
+  /*      BigDecimal change = stock.getQuote().getChangeInPercent();
+        BigDecimal yearHigh = stock.getQuote().getYearHigh();
+        BigDecimal yearHighChangePer = stock.getQuote().getChangeFromYearHighInPercent();
         BigDecimal peg = stock.getStats().getPeg();
         BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
+*/
+//        stock.print();
 
-        stock.print();
+        if (stock == null)
+            return StockData.builder().ticker(ticker).build();
 
         return StockData.builder().ticker(ticker).
                 companyName(stock.getName()).
                 currentPrice(stock.getQuote().getPrice().doubleValue()).
                 todayChangePercents(stock.getQuote().getChangeInPercent().doubleValue()).
+                yearHigh(stock.getQuote().getYearHigh().doubleValue()).
+                yearHighChangePercent(stock.getQuote().getChangeFromYearHighInPercent().doubleValue()).
                 build();
     }
 }

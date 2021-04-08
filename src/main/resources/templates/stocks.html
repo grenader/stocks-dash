@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        th, td { padding: .3em;}
+        th {
+            background-color: lightgray;
+            font-size: small;
+        }
+        table { border: 1px solid lightgray;}
+
+        td.price { text-align: right}
+        td.col_green { color: green}
+        td.col_red { color: darkred}
+
+
+    </style>
+</head>
+<body>
+<p>
+<h2>Stock Prices</h2>
+</p>
+
+<div th:if="${ not#lists.isEmpty(stocks)}">
+    <table>
+        <tr>
+            <th>Stock</th>
+            <th>Year High Price</th>
+            <th>Company Name</th>
+            <th>Cur Price</th>
+            <th>&nbsp;</th>
+            <th>Today Change, %</th>
+            <th>To Year High, %</th>
+
+        </tr>
+        <tr th:each="stock : ${stocks}">
+            <td th:text="${stock.ticker}"></td>
+            <td class="price" th:text="'$' + ${stock.yearHighPrice}"></td>
+            <td th:text="${stock.name}"></td>
+            <td class="price" th:text="'$' + ${stock.currentPrice}"></td>
+            <td>&nbsp;</td>
+            <td class="price" th:classappend="${stock.todayChangePercents > 0 ? 'col_green' : 'col_red'}"
+                th:text="${stock.todayChangePercents}+ '%'"></td>
+            <td class="price" th:classappend="${stock.yearHighChangePercents > 0 ? 'col_green' : 'col_red'}"
+                th:text="${stock.yearHighChangePercents}+ '%'"></td>
+        </tr>
+        <table>
+</div>
+</body>
+</html>

@@ -5,9 +5,11 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Product{
+public class StockLine {
     private String ticker;
     private String name;
     private double currentPrice;
     private double todayChangePercents;
+    private double yearHighPrice;
+    private double yearHighChangePercents;
 }

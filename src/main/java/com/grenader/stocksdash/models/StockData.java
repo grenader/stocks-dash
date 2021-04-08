@@ -13,4 +13,7 @@ public class StockData {
     private double currentPrice;
     private double todayChangePercents;
 
+    private double yearHigh;
+    private double yearHighChangePercent;
+
 }
